@@ -1,0 +1,167 @@
+4.1.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id;
+
+4.2
+    4.2.1.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    LEFT JOIN  products AS p ON order_details.product_id = p.id
+    LEFT JOIN categories AS categ ON p.category_id = categ.id
+    LEFT JOIN suppliers AS s ON p.supplier_id = s.id
+    LEFT JOIN orders AS o ON order_details.order_id = o.id
+    LEFT JOIN customers AS c ON o.customer_id = c.id
+    LEFT JOIN employees AS e ON o.employee_id = e.employee_id
+    LEFT JOIN shippers AS ship ON o.shipper_id = ship.id;
+
+    4.2.2.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    RIGHT JOIN  products AS p ON order_details.product_id = p.id
+    RIGHT JOIN categories AS categ ON p.category_id = categ.id
+    RIGHT JOIN suppliers AS s ON p.supplier_id = s.id
+    RIGHT JOIN orders AS o ON order_details.order_id = o.id
+    RIGHT JOIN customers AS c ON o.customer_id = c.id
+    RIGHT JOIN employees AS e ON o.employee_id = e.employee_id
+    RIGHT JOIN shippers AS ship ON o.shipper_id = ship.id;
+
+    4.2.3.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    RIGHT JOIN  products AS p ON order_details.product_id = p.id
+    LEFT JOIN categories AS categ ON p.category_id = categ.id
+    RIGHT JOIN suppliers AS s ON p.supplier_id = s.id
+    LEFT JOIN orders AS o ON order_details.order_id = o.id
+    RIGHT JOIN customers AS c ON o.customer_id = c.id
+    LEFT JOIN employees AS e ON o.employee_id = e.employee_id
+    RIGHT JOIN shippers AS ship ON o.shipper_id = ship.id;
+
+    4.2.4.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    RIGHT JOIN  products AS p ON order_details.product_id = p.id
+    RIGHT JOIN categories AS categ ON p.category_id = categ.id
+    RIGHT JOIN suppliers AS s ON p.supplier_id = s.id
+    RIGHT JOIN orders AS o ON order_details.order_id = o.id
+    LEFT JOIN customers AS c ON o.customer_id = c.id
+    LEFT JOIN employees AS e ON o.employee_id = e.employee_id
+    LEFT JOIN shippers AS ship ON o.shipper_id = ship.id;
+
+    В результаті проведеного дослідження видно, що вибірка загальної кількості ордерів через LEFT, 
+    RIGHT або INNER JOIN нічим не відрізняються. Це можливо через сильну кореляцію даних. Однак в 
+    деяких випадках помітно значне зростання часу відповіді. Наприклад, якщо виберемо тільки LEFT 
+    JOIN, то швидкість виконання становить від 0 до 0.016 с. В той час як при вибірці даних з RIGHT
+    JOIN час виконання становить приблизно 0.7 с (здійснено декілька запитів). Якщо ж задати
+    один RIGHT та один LEFT JOIN, і подальше їх чергування за таким патерном, то час виникає помилка 
+    (що може бути причиною певних конфліктів). Якщо ж задати вибірку з перших декількох таблиць за
+    RIGHT JOIN, а решту, за LEFT JOIN, то час запиту становить приблизно як і для варіанту з тільки 
+    RIGHT JOIN, а саме, 0.65 с.
+    Варто зазначити, що час тривалості запиту з INNER JOIN становить в середньому 0.078 с. 
+    Виходячи з цього, можна зробити висновок, що для даного сценарію найкращим варіантом являється вибірка 
+    з допомогою LEFT JOIN та INNER JOIN. Всі ж запити з використанням RIGHT JOIN займали набагато більше часу,
+    а в деяких випадках, взагалі призводить до помилки. Можливо проблема з RIGHT JOIN є в тому, що в більшості 
+    запити виконуються через LEFT JOIN і як наслідок оптимізація запитів з RIGHT JOIN є не дотатньою. Крім того,
+    на практиці здебільшого використовують LEFT JOIN. А комбінацію LEFT та RIGHT JOIN взагалі не потрібно використовувати 
+    через їх можливий конфліктну та взаємопротилежну сутність.
+    Тому для вибірки даних найоптимальнішим варіантом є LEFT JOIN.
+
+4.3.
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    WHERE e.employee_id > 3 AND  e.employee_id <= 10;
+
+4.4.
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name;
+
+4.5.
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21;
+
+4.6.
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21
+    ORDER BY COUNT(*) DESC;
+
+4.7.
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21
+    ORDER BY COUNT(*) DESC
+    LIMIT 4 OFFSET 1;
