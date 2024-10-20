@@ -29,7 +29,7 @@ Create a database to manage the book library according to the structure given be
 Database structure
 
 ## Task1a
- Scheme name — “LibraryManagement”
+ Scheme name — *“LibraryManagement”*
 
 SQL queries:
 
@@ -42,10 +42,10 @@ Result:
 ![](/1.DB_structure/1.a.Create_schema.png)
 
 ## Task1b
- "authors" table:
+ Create "authors" table:
 
- author_id (INT, auto-increment PRIMARY KEY)
- author_name (VARCHAR)
+ - *author_id (INT, auto-increment PRIMARY KEY)*
+ - *author_name (VARCHAR)*
 
  SQL queries:
 
@@ -63,10 +63,10 @@ Result:
 ![](/1.DB_structure/1.b.Authors%20_table.png)
 
 ## Task1c
- Table "genres":
+ Create table "genres":
 
- genre_id (INT, auto-increment PRIMARY KEY)
- genre_name (VARCHAR)
+  - *genre_id (INT, auto-increment PRIMARY KEY)*
+  - *genre_name (VARCHAR)*
 
  SQL queries:
 
@@ -84,13 +84,13 @@ Result:
 ![](/1.DB_structure/1.c.Genres%20_table.png)
 
 ## Task1d
- Table "books":
+ Create table "books":
 
- book_id (INT, auto-increment PRIMARY KEY)
- title (VARCHAR)
- publication_year (YEAR)
- author_id (INT, FOREIGN KEY relation to "Authors")
- genre_id (INT, FOREIGN KEY relation to "Genres")
+ - *book_id (INT, auto-increment PRIMARY KEY)*
+ - *title (VARCHAR)*
+ - *publication_year (YEAR)*
+ - *author_id (INT, FOREIGN KEY relation to "Authors")*
+ - *genre_id (INT, FOREIGN KEY relation to "Genres")*
 
  SQL queries:
 
@@ -113,11 +113,11 @@ Result:
 ![](/1.DB_structure/1.d.Books_table.png)
 
 ## Task1e 
-Table "users":
+Create table "users":
 
- user_id (INT, auto-increment PRIMARY KEY)
- username (VARCHAR)
- email (VARCHAR)
+ - *user_id (INT, auto-increment PRIMARY KEY)*
+ - *username (VARCHAR)*
+ - *email (VARCHAR)*
 
  SQL queries:
 
@@ -136,13 +136,13 @@ Result:
 ![](/1.DB_structure/1.e.Users_table.png)
 
 ## Task1f
- Table "borrowed_books":
+ Create table "borrowed_books":
 
- borrow_id (INT, auto-increment PRIMARY KEY)
- book_id (INT, FOREIGN KEY relation to "Books")
- user_id (INT, FOREIGN KEY relation to "Users")
- borrow_date (DATE)
- return_date (DATE)
+ - *borrow_id (INT, auto-increment PRIMARY KEY)*
+ - *book_id (INT, FOREIGN KEY relation to "Books")*
+ - *user_id (INT, FOREIGN KEY relation to "Users")*
+ - *borrow_date (DATE)*
+ - *return_date (DATE)*
 
  SQL queries:
 
