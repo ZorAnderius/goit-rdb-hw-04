@@ -301,3 +301,46 @@ Result:
 Result:
 
 ![](/2.Insert_data/2.e.Borrowed_books_table.png)
+
+
+## Task3
+Go to the database that you worked with in Topic 3. Write a query using the FROM and INNER JOIN statements that joins all the data tables that we loaded from the files: order_details, orders, customers, products, categories, employees, shippers, suppliers. To do this, you need to find shared keys.
+
+Check the correct execution of the request.
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT order_id AS 'Order number', 
+        o.date AS 'Order date',
+        p.name AS 'Product name',
+        categ.name AS 'Category',
+        quantity,
+        (quantity * p.price) AS 'Total price',
+        c.name AS 'Customer name',
+        c.contact AS 'Customer contact',
+        c.address AS 'Customer address',
+        CONCAT(e.first_name, ' ', e.last_name) AS 'Employee full name',
+        e.birthdate AS 'Employee birthday',
+        s.name AS 'Supplier name',
+        s.phone AS 'Supplier phone',
+        ship.name AS 'Shipper name',
+        ship.phone AS 'Shipper phone'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id;
+```
+
+Also, as result of queries you can check follow file - ![Result of join](3.result_tabel.csv) 
+
+
+Result:
+
+![](/3.Inner_join/3.Inner_join.png)
