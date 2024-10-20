@@ -58,7 +58,7 @@
     ('Nory Vertega', 'vertega@gmai.com');
 
   e) insert data to the borrowed_books tabel:
-  use librarymanagment;
+    use librarymanagment;
 
     INSERT INTO borrowed_books (borrow_date, return_date, book_id, user_id)
     VALUES 

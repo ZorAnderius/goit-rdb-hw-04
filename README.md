@@ -166,3 +166,138 @@ Result:
 
 
 
+## Task2
+ Fill in the tables with simple fictitious test data. One or two rows in each table are enough.
+
+ - *author table:*
+
+ 
+ SQL queries:
+
+
+``` mysql 
+    use librarymanagment;
+
+    INSERT INTO authors (author_name)
+    VALUES 
+    ('George Orwell'),
+    ('Colleen Hoover'),
+    ('Ernest Hemingway'),
+    ('J.K. Rowling'),
+    ('F. Scott Fitzgerald');
+```
+
+Result:
+
+![](/2.Insert_data/2.a.Authors_table.png)
+
+
+ - *genres table:*
+
+ SQL queries:
+
+
+``` mysql 
+    use librarymanagment;
+
+    INSERT INTO genres (genre_name)
+    VALUES 
+    ('dystopia'),
+    ('political satire'),
+    ('memoir'),
+    ('romance'),
+    ('fiction'),
+    ('drama'),
+    ('fantasy'),
+    ('tragedy');
+```
+
+Result:
+
+![](/2.Insert_data/2.b.Genres_table.png)
+
+
+ - *books table:*
+
+  SQL queries:
+
+
+``` mysql 
+    use librarymanagment;
+
+    INSERT INTO books (title, publication_year, author_id, genre_id)
+    VALUES 
+    ('1984', 1949, 1, 1),
+    ('Animal Farm', 1945, 1, 2),
+    ('Homage to Catalonia', 1938, 1, 3),
+    ('It Ends with Us', 2016, 2, 4),
+    ('Verity', 2018, 2, 4),
+    ('Reminders of Him', 2022, 2, 4),
+    ('The Old Man and the Sea', 1952, 3, 5),
+    ('For Whom the Bell Tolls', 1940, 3, 5),
+    ('A Farewell to Arms', 1929, 3, 5),
+    ('Harry Potter and the Philosopher\'s Stone',  1997, 4, 7),
+    ('Harry Potter and the Chamber of Secrets', 1998, 4, 7),
+    ('Harry Potter and the Prisoner of Azkaban', 1999, 4, 7),
+    ('The Great Gatsby',  1925, 5, 8),
+    ('Tender is the Night', 1934, 5, 8),
+    ('This Side of Paradise', 1920, 5, 5);
+```
+
+Result:
+
+![](/2.Insert_data/2.c.Books_table.png)
+
+
+ - *users table:*
+
+  SQL queries:
+
+
+``` mysql 
+    use librarymanagment;
+
+    INSERT INTO users (username, email)
+    VALUES 
+    ('John Snow', 'snow.jogn@gmaol.com'),
+    ('Anna Porretti', 'poretti@gmai.com'),
+    ('John Doe', 'john.doe@gmail.com'),
+    ('Ivan Dolphy', 'dolphy@gmai.com'),
+    ('Nory Vertega', 'vertega@gmai.com');
+```
+
+Result:
+
+![](/2.Insert_data/2.d.User_table.png)
+
+
+ - *Borrowed_books table:*
+
+  SQL queries:
+
+
+``` mysql 
+    use librarymanagment;
+
+    INSERT INTO borrowed_books (borrow_date, return_date, book_id, user_id)
+    VALUES 
+    ('2024-10-16', '2024-10-30', 16, 2),
+    ('2024-09-23', '2024-10-28', 17, 1),
+    ('2024-10-12', '2024-12-02', 18, 5),
+    ('2024-10-16', '2024-10-29', 19, 4),
+    ('2024-10-15', '2024-10-30', 20, 3),
+    ('2024-10-16', '2024-10-30', 21, 2),
+    ('2024-09-23', '2024-10-28', 22, 1),
+    ('2024-10-12', '2024-12-02', 23, 1),
+    ('2024-10-16', '2024-10-29', 24, 4),
+    ('2024-10-15', '2024-10-30', 25, 1),
+    ('2024-10-16', '2024-10-30', 26, 2),
+    ('2024-09-23', '2024-10-28', 27, 1),
+    ('2024-10-12', '2024-12-02', 28, 5),
+    ('2024-10-16', '2024-10-29', 29, 5),
+    ('2024-10-15', '2024-10-30', 30, 3);
+```
+
+Result:
+
+![](/2.Insert_data/2.e.Borrowed_books_table.png)
