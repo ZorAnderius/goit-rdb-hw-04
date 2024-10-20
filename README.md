@@ -372,7 +372,7 @@ SQL queries:
 
 Result:
 
-![](/4.Answers//4.1.Count.png)
+![](/4.Answers/4.1.Count.png)
 
 
 ## Task4-2
@@ -407,7 +407,7 @@ SQL queries:
 
 Result:
 
-![](/4.Answers//4.2.1LEFT_JOIN.png)
+![](/4.Answers/4.2.1LEFT_JOIN.png)
 
 
 *RIGHT JOIN*
@@ -431,7 +431,7 @@ SQL queries:
 
 Result:
 
-![](/4.Answers//4.2.2.RIGHT_JOIN.png)
+![](/4.Answers/4.2.2.RIGHT_JOIN.png)
 
 *RIGHT/LEFT JOIN (change by one)*
 
@@ -454,7 +454,7 @@ SQL queries:
 
 Result:
 
-![](/4.Answers//4.2.3.RIGHT&LEFT_JOIN(ODD&EVEN).png)
+![](/4.Answers/4.2.3.RIGHT&LEFT_JOIN(ODD&EVEN).png)
 
 *RIGHT/LEFT JOIN*
 
@@ -477,7 +477,7 @@ SQL queries:
 
 Result:
 
-![](/4.Answers//4.2.4.RIGHTandLEFT_JOIN.png)
+![](/4.Answers/4.2.4.RIGHTandLEFT_JOIN.png)
 
 
 Main result: 
@@ -493,3 +493,144 @@ As a result of the conducted research, it can be seen that the sampling of the t
  Based on this, we can conclude that for this scenario, the best option is the LEFT JOIN and INNER JOIN selection. All requests using RIGHT JOIN took much more time, and in some cases, even lead to an error. Perhaps the problem with RIGHT JOIN is that most requests are executed via LEFT JOIN, and as a result, optimization of requests with RIGHT JOIN is not optimal. In addition, LEFT JOIN is mostly used in practice. And the combination of LEFT and RIGHT JOIN should not be used at all because of their possible conflicting and opposite nature. Therefore, LEFT JOIN is the most optimal option for data selection.
 
 
+## Task4-3
+
+Select only those rows where employee_id > 3 and ≤ 10.
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT COUNT(order_id) AS 'Total orders'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    WHERE e.employee_id > 3 AND  e.employee_id <= 10;
+```
+
+Result:
+
+![](/4.Answers/4.3.CountAndEmployeeID.png)
+
+
+
+## Task4-4
+
+Group by category name, count number of rows in group, average product quantity (product quantity is in order_details.quantity)
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name;
+```
+
+Result:
+
+
+## Task4-5
+
+Filter out rows where the average number of items is greater than 21.
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21;
+```
+
+Result:
+
+![](/4.Answers/4.5.FilterCategory.png)
+
+
+## Task4-6
+
+Sort the rows in descending order of number of rows.
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21
+    ORDER BY COUNT(*) DESC;
+```
+
+Result:
+
+![](/4.Answers/4.6.SortByTotalRecords.png)
+
+
+## Task4-7
+
+Display (select) four lines with the first line omitted.
+
+SQL queries:
+
+``` mysql 
+    use hw2;
+
+    SELECT categ.name AS 'Category',
+        COUNT(*) AS 'Total records',
+        AVG(quantity) AS 'Average quantity'
+    FROM order_details
+    INNER JOIN  products AS p ON order_details.product_id = p.id
+    INNER JOIN categories AS categ ON p.category_id = categ.id
+    INNER JOIN suppliers AS s ON p.supplier_id = s.id
+    INNER JOIN orders AS o ON order_details.order_id = o.id
+    INNER JOIN customers AS c ON o.customer_id = c.id
+    INNER JOIN employees AS e ON o.employee_id = e.employee_id
+    INNER JOIN shippers AS ship ON o.shipper_id = ship.id
+    GROUP BY categ.name
+    HAVING AVG(quantity) > 21
+    ORDER BY COUNT(*) DESC
+    LIMIT 4 OFFSET 1;
+```
+
+Result:
+
+![](/4.Answers/4.7.Limit+Offset.png)
