@@ -481,13 +481,15 @@ Result:
 
 
 Main result: 
-```javascript УКР
-В результаті проведеного дослідження видно, що вибірка загальної кількості ордерів через LEFT, RIGHT або INNER JOIN нічим не відрізняються. Це можливо через сильну кореляцію даних. Однак в деяких випадках помітно значне зростання часу відповіді. Наприклад, якщо виберемо тільки LEFT JOIN, то швидкість виконання становить від 0 до 0.016 с. В той час як при вибірці даних з RIGHT JOIN час виконання становить приблизно 0.7 с (здійснено декілька запитів). Якщо ж задати один RIGHT та один LEFT JOIN, і подальше їх чергування за таким патерном, то час виникає помилка  (що може бути причиною певних конфліктів). Якщо ж задати вибірку з перших декількох таблиць за RIGHT JOIN, а решту, за LEFT JOIN, то час запиту становить приблизно як і для варіанту з тільки RIGHT JOIN, а саме, 0.65 с.
+## Українська версія
+ В результаті проведеного дослідження видно, що вибірка загальної кількості ордерів через LEFT, RIGHT або INNER JOIN нічим не відрізняються. Це можливо через сильну кореляцію даних. Однак в деяких випадках помітно значне зростання часу відповіді. Наприклад, якщо виберемо тільки LEFT JOIN, то швидкість виконання становить від 0 до 0.016 с. В той час як при вибірці даних з RIGHT JOIN час виконання становить приблизно 0.7 с (здійснено декілька запитів). Якщо ж задати один RIGHT та один LEFT JOIN, і подальше їх чергування за таким патерном, то час виникає помилка  (що може бути причиною певних конфліктів). Якщо ж задати вибірку з перших декількох таблиць за RIGHT JOIN, а решту, за LEFT JOIN, то час запиту становить приблизно як і для варіанту з тільки RIGHT JOIN, а саме, 0.65 с.
  Варто зазначити, що час тривалості запиту з INNER JOINстановить в середньому 0.078 с. 
  Виходячи з цього, можна зробити висновок, що для даного сценарію найкращим варіантом являється вибірка з допомогою LEFT JOIN та INNER JOIN. Всі ж запити з використанням RIGHT JOIN займали набагато більше часу, а в деяких випадках, взагалі призводить до помилки. Можливо проблема з RIGHT JOIN є в тому, що в більшості запити виконуються через LEFT JOIN і як наслідок оптимізація запитів з RIGHT JOIN є не дотатньою. Крім того, на практиці здебільшого використовують LEFT JOIN. А комбінацію LEFT та RIGHT JOIN взагалі не потрібно використовувати  через їх можливий конфліктну та взаємопротилежну сутність. Тому для вибірки даних найоптимальнішим варіантом є LEFT JOIN.
-```
-```javascript English
+
+
+  ## English Version
 As a result of the conducted research, it can be seen that the sampling of the total number of orders through LEFT, RIGHT or INNER JOIN does not differ. This is possible due to the strong correlation of the data. However, in some cases, a significant increase in response time is noticeable. For example, if we choose only LEFT JOIN, the execution speed is from 0 to 0.016 s. While when retrieving data from RIGHT JOIN, the execution time is approximately 0.7 s (several requests are made). If you specify one RIGHT and one LEFT JOIN, and their subsequent alternation according to this pattern, then an error occurs (which may be the cause of certain conflicts). If you specify a selection from the first few tables by RIGHT JOIN, and the rest by LEFT JOIN, then the query time is approximately the same as for the option with only RIGHT JOIN, namely, 0.65 s.
  It is worth noting that the INNER JOIN request takes an average of 0.078 seconds.
  Based on this, we can conclude that for this scenario, the best option is the LEFT JOIN and INNER JOIN selection. All requests using RIGHT JOIN took much more time, and in some cases, even lead to an error. Perhaps the problem with RIGHT JOIN is that most requests are executed via LEFT JOIN, and as a result, optimization of requests with RIGHT JOIN is not optimal. In addition, LEFT JOIN is mostly used in practice. And the combination of LEFT and RIGHT JOIN should not be used at all because of their possible conflicting and opposite nature. Therefore, LEFT JOIN is the most optimal option for data selection.
-```
+
+
